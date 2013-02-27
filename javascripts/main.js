@@ -65,9 +65,9 @@ $(function() {
 		var json = $.parseJSON(data.query.results.body.p);		
 		var $thumbnail = $("#thumbnail").html();
 		var template = Handlebars.compile($thumbnail);
-		
-		var browserHtml = template({title: json.agent_name.toLowerCase(), version: json.agent_version}).trim();
-		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')}).trim();
+		var browserName = json.agent_name.toLowerCase();
+		var browserHtml = template({title: browserName.indexOf("explorer") != -1 ? browserName.replace(/ /g, '') : browserName, version: json.agent_version});
+		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')});
 		
 		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
 	});
