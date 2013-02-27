@@ -67,7 +67,7 @@ $(function() {
 		var template = Handlebars.compile($thumbnail);
 		
 		var browserHtml = template({title: json.agent_name.toLowerCase(), version: json.agent_version}).trim();
-		var osHtml = template({title: json.os_name.replace(/ /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.')}).trim();
+		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.')}).trim();
 		
 		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
 
