@@ -6,18 +6,10 @@
 		<title>현재 브라우저와 OS 버전 확인</title>
 		<link rel="stylesheet" type="text/css" href="stylesheets/metro-bootstrap.css"/>
 		<style rel="stylesheet" type="text/css">
-			.thumbnails > li.tile.tile-firefox {background-color: #F58D00;}
-			.thumbnails > li.tile.tile-chrome {background-color: #CE4E4E;}
-			.thumbnails > li.tile.tile-opera {background-color: #E81616;}
-			.thumbnails > li.tile.tile-ie {background-color: #39BBEA;}
-			.thumbnails > li.tile.tile-safari {background-color: #00A9EC;}
-			.thumbnails > li.tile.tile-osx {background-color: #6D6E71;}
-			.thumbnails > li.tile.tile-ios {background-color: #2C2C2C;}
-			.thumbnails > li.tile.tile-linux {background-color: #F3BF00;}
-			.thumbnails > li.tile.tile-windows {background-color: #04AEDA;}
+			.hidden {display: none;}
 			.thumbnails {height: 165px;}
 			.thumbnails img {width: 100px; height: 100px;}
-			.thumbnails a {color: white; font-size: 1.75em; font-weight: 700; line-height: 50px;}
+			.thumbnails a {color: white; font-size: 28px; font-weight: 700; line-height: 50px;}
 		</style>
 	</head>
 
@@ -66,6 +58,8 @@
 				</ul>
 			</section>
 			
+			<canvas id="canvas" class="hidden"></canvas>
+			
 			<hr>
 			
 			<footer>
@@ -78,10 +72,10 @@
 		    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<script id="thumbnail" type="text/x-handlebars-template">
-			<li class="span4 tile tile-{{type}}">
+			<li class="span4 tile">
 		        <a href="#">
 		            <img src="images/{{title}}.png" width="100" height="100" alt="{{title}}" title="{{title}} {{version}}">
-		            <h2><strong>{{majorVersion}}</strong></h2>
+		            <h3><strong>{{majorVersion}}</strong></h3>
 		        </a>
 		    </li>
 		</script>

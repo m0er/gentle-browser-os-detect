@@ -1,20 +1,3 @@
-function showBrowserAndOsInfo() {
-	var $thumbnail = $("#thumbnail").html(),
-		template = Handlebars.compile($thumbnail),
-		browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version, type: $.ua.browser.name.toLowerCase()}),
-		osHtml = template({title: $.ua.os.name, majorVersion: $.ua.os.version, version: $.ua.os.version, type: osType()});
-	
-	$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
-}
-
-function osType() {
-	if ($.ua.os.name.indexOf("Mac") != -1) {
-		return "osx";
-	}
-	
-	return $.ua.os.name.toLowerCase();
-}
-
 /*
  
 	You can now create a spinner using any of the variants below:
@@ -73,4 +56,29 @@ $(function() {
 		e.preventDefault();
 	});
 	
+	function showBrowserAndOsInfo() {
+		var $thumbnail = $("#thumbnail").html(),
+			template = Handlebars.compile($thumbnail),
+			browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version}),
+			osHtml = template({title: $.ua.os.name, majorVersion: $.ua.os.version, version: $.ua.os.version});
+		
+		$("#info").append(setBgColor(browserHtml)).append(setBgColor(osHtml)).spin(false);
+	}
+
+	function osType() {
+		if ($.ua.os.name.indexOf("Mac") != -1) {
+			return "osx";
+		}
+		
+		return $.ua.os.name.toLowerCase();
+	}
+
+	var img = new Image();
+	var context = document.getElementById("canvas").getContext("2d");
+	function setBgColor(html) {
+		img.src = $(html).find("img").attr("src");
+		context.drawImage(img, 0, 0);
+		var data = context.getImageData(0, 0, 1, 1).data;
+		return $(html).find("li").css("background-color", rgba(data[0], data[1], data[2], data[3])).end();
+	}
 });
