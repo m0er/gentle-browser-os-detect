@@ -80,6 +80,6 @@ $(function() {
 		img.src = $html.find("img").attr("src");
 		context.drawImage(img, 0, 0);
 		var data = context.getImageData(0, 0, 1, 1).data;
-		return $html.css("background-color", "rgba(" + data[0] + "," + data[1] + "," + data[2] + ")");
+		return $html.css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
 	}
 });
