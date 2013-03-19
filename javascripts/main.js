@@ -62,31 +62,30 @@ $(document).ready(function() {
 			browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version}),
 			osHtml = template({title: $.ua.os.name, majorVersion: $.ua.os.version, version: $.ua.os.version});
 		
-		$("#info").append(setBgColor(browserHtml)).append(setBgColor(osHtml)).spin(false);
-	}
+		$("#info").append($(browserHtml)).append($(osHtml)).spin(false);
+		
+		$("img").imagesLoaded(function($images) {
+			$images.each(function() {
+				var context,
+				img = new Image(),
+				
+				try {
+					$("body").prepend($("<canvas id='canvas' width='100' height='100' class='hidden'>"));
+					context = document.getElementById("canvas").getContext("2d");
+				} catch (e) {
+					$("#canvas").remove();
+					return;
+				}
+				
+				context.drawImage(this, 0, 0);
+				
+				var data = context.getImageData(5, 5, 100, 100).data;
+				$("#canvas").remove();
+				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
+				
+			});
+			
 
-	function setBgColor(html) {
-		var context,
-			img = new Image(),
-			$html = $(html);
-		
-		try {
-			$("body").prepend($("<canvas id='canvas' width='100' height='100' class='hidden'>"));
-			context = document.getElementById("canvas").getContext("2d");
-		} catch (e) {
-			$("#canvas").remove();
-			return $html;
-		}
-		
-		img.src = $html.find("img").attr("src");
-		context.drawImage(img, 0, 0);
-		
-		img.onload = function() {
-			var data = context.getImageData(0, 0, $("#canvas").width(), $("#canvas").height()).data;
-			$("#canvas").remove();
-			$html.css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
-		}
-		
-		return $html;
+		});
 	}
 });
