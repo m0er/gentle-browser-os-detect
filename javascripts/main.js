@@ -68,14 +68,6 @@ $(function() {
 		$("#info").append(setBgColor(browserHtml)).append(setBgColor(osHtml)).spin(false);
 	}
 
-	function osType() {
-		if ($.ua.os.name.indexOf("Mac") != -1) {
-			return "osx";
-		}
-		
-		return $.ua.os.name.toLowerCase();
-	}
-
 	function setBgColor(html) {
 		var $html = $(html);
 		img.src = $html.find("img").attr("src");
