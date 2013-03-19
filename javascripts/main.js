@@ -1,54 +1,10 @@
-function runYql(command, callback){
-     callback_name = "__YQL_callback_"+(new Date()).getTime();
-     window[callback_name] = callback;
-     a = document.createElement('script');
-     a.src = "http://query.yahooapis.com/v1/public/yql?q="
-             +escape(command)+"&format=json&callback="+callback_name;
-     a.type = "text/javascript";
-     document.getElementsByTagName("head")[0].appendChild(a);
-}
-
 function showBrowserAndOsInfo() {
-	var url = "http://www.useragentstring.com/?getJSON=all&uas=" + navigator.userAgent;
-	runYql('select * from html where url=\"' + encodeURI(url) + '\"', function(data) {
-		var json;
-		
-		try {
-			json = $.parseJSON(data.query.results.body.p);
-		} catch (e) {
-			backupPlan();
-		}
-		
-		var $thumbnail = $("#thumbnail").html();
-		var template = Handlebars.compile($thumbnail);
-		var browserName = json.agent_name.toLowerCase();
-		var browserHtml = template({title: browserName.indexOf("explorer") != -1 ? browserName.replace(/ /g, '') : browserName, version: json.agent_version});
-		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')});
-		
-		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
-	});
-}
-
-function backupPlan() {
-	var url = "http://user-agent-string.info/rpc/rpctxt.php?key=free&ua=" + $.base64.btoa(navigator.userAgent);
-	runYql('select * from html where url=\"' + encodeURI(url) + '\"', function(data) {
-		var json;
-		
-		try {
-			console.log(data);
-			//json = $.parseJSON(data.query.results.body.p);
-		} catch (e) {
-			
-		}
-		
-//		var $thumbnail = $("#thumbnail").html();
-//		var template = Handlebars.compile($thumbnail);
-//		var browserName = json.agent_name.toLowerCase();
-//		var browserHtml = template({title: browserName.indexOf("explorer") != -1 ? browserName.replace(/ /g, '') : browserName, version: json.agent_version});
-//		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')});
-//		
-//		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
-	});
+	var $thumbnail = $("#thumbnail").html(),
+		template = Handlebars.compile($thumbnail),
+		browserHtml = template({title: $.ua.browser.name, version: $.ua.browser.version}),
+		osHtml = template({title: $.ua.os.name, version: $.ua.os.version});
+	
+	$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
 }
 
 /*
