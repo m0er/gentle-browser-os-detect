@@ -1,4 +1,4 @@
-function RunYQL(command, callback){
+function runYql(command, callback){
      callback_name = "__YQL_callback_"+(new Date()).getTime();
      window[callback_name] = callback;
      a = document.createElement('script');
@@ -8,16 +8,59 @@ function RunYQL(command, callback){
      document.getElementsByTagName("head")[0].appendChild(a);
 }
 
+function showBrowserAndOsInfo() {
+	var url = "http://www.useragentstring.com/?getJSON=all&uas=" + navigator.userAgent;
+	runYql('select * from html where url=\"' + encodeURI(url) + '\"', function(data) {
+		var json;
+		
+		try {
+			json = $.parseJSON(data.query.results.body.p);
+		} catch (e) {
+			backupPlan();
+		}
+		
+		var $thumbnail = $("#thumbnail").html();
+		var template = Handlebars.compile($thumbnail);
+		var browserName = json.agent_name.toLowerCase();
+		var browserHtml = template({title: browserName.indexOf("explorer") != -1 ? browserName.replace(/ /g, '') : browserName, version: json.agent_version});
+		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')});
+		
+		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
+	});
+}
+
+function backupPlan() {
+	var url = "http://user-agent-string.info/rpc/rpctxt.php?key=free&ua=" + $.base64.btoa(navigator.userAgent);
+	runYql('select * from html where url=\"' + encodeURI(url) + '\"', function(data) {
+		var json;
+		
+		try {
+			console.log(data);
+			//json = $.parseJSON(data.query.results.body.p);
+		} catch (e) {
+			
+		}
+		
+//		var $thumbnail = $("#thumbnail").html();
+//		var template = Handlebars.compile($thumbnail);
+//		var browserName = json.agent_name.toLowerCase();
+//		var browserHtml = template({title: browserName.indexOf("explorer") != -1 ? browserName.replace(/ /g, '') : browserName, version: json.agent_version});
+//		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')});
+//		
+//		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
+	});
+}
+
 /*
  
-You can now create a spinner using any of the variants below:
- 
-$("#el").spin(); // Produces default Spinner using the text color of #el.
-$("#el").spin("small"); // Produces a 'small' Spinner using the text color of #el.
-$("#el").spin("large", "white"); // Produces a 'large' Spinner in white (or any valid CSS color).
-$("#el").spin({ ... }); // Produces a Spinner using your custom settings.
- 
-$("#el").spin(false); // Kills the spinner.
+	You can now create a spinner using any of the variants below:
+	 
+	$("#el").spin(); // Produces default Spinner using the text color of #el.
+	$("#el").spin("small"); // Produces a 'small' Spinner using the text color of #el.
+	$("#el").spin("large", "white"); // Produces a 'large' Spinner in white (or any valid CSS color).
+	$("#el").spin({ ... }); // Produces a Spinner using your custom settings.
+	 
+	$("#el").spin(false); // Kills the spinner.
  
 */
 (function($) {
@@ -60,17 +103,7 @@ $("#el").spin(false); // Kills the spinner.
 $(function() {
 	$("#info").spin();
 	
-	var url = "http://www.useragentstring.com/?getJSON=all&uas=" + navigator.userAgent;
-	RunYQL('select * from html where url=\"' + encodeURI(url) + '\"', function(data) {
-		var json = $.parseJSON(data.query.results.body.p);		
-		var $thumbnail = $("#thumbnail").html();
-		var template = Handlebars.compile($thumbnail);
-		var browserName = json.agent_name.toLowerCase();
-		var browserHtml = template({title: browserName.indexOf("explorer") != -1 ? browserName.replace(/ /g, '') : browserName, version: json.agent_version});
-		var osHtml = template({title: json.os_name.replace(/[0-9]| /g, '').toLowerCase(), version: json.os_versionNumber.replace(/_/g, '.') || json.os_name.replace(/\D| /g, '')});
-		
-		$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
-	});
+	showBrowserAndOsInfo();
 	
 	$(".thumbnails a").click(function(e) {
 		e.preventDefault();
