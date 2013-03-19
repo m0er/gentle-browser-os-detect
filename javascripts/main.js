@@ -75,7 +75,7 @@ $(document).ready(function() {
 				} catch (e) {
 					$("#canvas").remove();
 					$("#info").spin(false);
-					$(this).removeClass("not");
+					$(this).parents("li.tile").removeClass("not");
 					return;
 				}
 				
