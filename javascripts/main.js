@@ -72,7 +72,7 @@ $(function() {
 			$html = $(html);
 		
 		try {
-			context = context = document.getElementById("canvas").getContext("2d");
+			context = document.getElementById("canvas").getContext("2d");
 		} catch (e) {
 			return $html;
 		}
