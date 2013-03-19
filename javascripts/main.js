@@ -80,10 +80,13 @@ $(document).ready(function() {
 		
 		img.src = $html.find("img").attr("src");
 		context.drawImage(img, 0, 0);
-		var data = context.getImageData(0, 0, $("#canvas").width(), $("#canvas").height()).data;
 		
-		$("#canvas").remove();
+		img.onload = function() {
+			var data = context.getImageData(0, 0, $("#canvas").width(), $("#canvas").height()).data;
+			$("#canvas").remove();
+			$html.css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
+		}
 		
-		return $html.css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
+		return $html;
 	}
 });
