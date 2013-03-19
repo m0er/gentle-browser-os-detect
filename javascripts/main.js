@@ -73,19 +73,22 @@ $(document).ready(function() {
 					$("body").prepend($("<canvas id='canvas' width='100' height='100' class='hidden'>"));
 					context = document.getElementById("canvas").getContext("2d");
 				} catch (e) {
-					$("#canvas").remove();
-					$("#info").spin(false);
-					$(this).parents("li.tile").removeClass("not");
+					afterImageLoaded(this);
 					return;
 				}
 				
 				context.drawImage(this, 0, 0);
 				
 				var data = context.getImageData(5, 5, 100, 100).data;
-				$("#canvas").remove();
-				$("#info").spin(false);
-				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")").removeClass("not");
+				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
+				afterImageLoaded(this);
 			});
 		});
+	}
+	
+	function afterImageLoaded(image) {
+		$("#canvas").remove();
+		$("#info").spin(false);
+		$(image).parents("li.tile").removeClass("not");
 	}
 });
