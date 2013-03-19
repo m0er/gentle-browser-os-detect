@@ -73,6 +73,7 @@ $(document).ready(function() {
 			$("body").prepend($("<canvas id='canvas' width='100' height='100' class='hidden'>"));
 			context = document.getElementById("canvas").getContext("2d");
 		} catch (e) {
+			$("#canvas").remove();
 			return $html;
 		}
 		
