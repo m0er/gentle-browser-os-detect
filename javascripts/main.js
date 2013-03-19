@@ -48,6 +48,9 @@
 })(jQuery);
 
 $(function() {
+	var img = new Image(),
+		context = document.getElementById("canvas").getContext("2d");
+	
 	$("#info").spin();
 	
 	showBrowserAndOsInfo();
@@ -73,8 +76,6 @@ $(function() {
 		return $.ua.os.name.toLowerCase();
 	}
 
-	var img = new Image();
-	var context = document.getElementById("canvas").getContext("2d");
 	function setBgColor(html) {
 		img.src = $(html).find("img").attr("src");
 		context.drawImage(img, 0, 0);
