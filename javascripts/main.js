@@ -67,6 +67,7 @@ $(document).ready(function() {
 
 	function setBgColor(html) {
 		var context,
+			img = new Image(),
 			$html = $(html);
 		
 		try {
@@ -77,7 +78,8 @@ $(document).ready(function() {
 			return $html;
 		}
 		
-		context.drawImage($html.find("img")[0], 0, 0);
+		img.src = $html.find("img").attr("src");
+		context.drawImage(img, 0, 0);
 		var data = context.getImageData(0, 0, $("#canvas").width(), $("#canvas").height()).data;
 		
 		$("#canvas").remove();
