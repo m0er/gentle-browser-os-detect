@@ -1,7 +1,7 @@
 function showBrowserAndOsInfo() {
 	var $thumbnail = $("#thumbnail").html(),
 		template = Handlebars.compile($thumbnail),
-		browserHtml = template({title: $.ua.browser.name, version: $.ua.browser.version, type: $.ua.browser.name.toLowerCase()}),
+		browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version, type: $.ua.browser.name.toLowerCase()}),
 		osHtml = template({title: $.ua.os.name, version: $.ua.os.version, type: osType()});
 	
 	$("#info").append($(browserHtml)).append($(osHtml)).removeClass("not").spin(false);
