@@ -9,10 +9,10 @@
 			.thumbnails > li.tile.tile-firefox {background-color: #F58D00;}
 			.thumbnails > li.tile.tile-chrome {background-color: #CE4E4E;}
 			.thumbnails > li.tile.tile-opera {background-color: #E81616;}
-			.thumbnails > li.tile.tile-internetexplorer {background-color: #39BBEA;}
+			.thumbnails > li.tile.tile-ie {background-color: #39BBEA;}
 			.thumbnails > li.tile.tile-safari {background-color: #00A9EC;}
 			.thumbnails > li.tile.tile-osx {background-color: #6D6E71;}
-			.thumbnails > li.tile.tile-iphoneos {background-color: #2C2C2C;}
+			.thumbnails > li.tile.tile-ios {background-color: #2C2C2C;}
 			.thumbnails > li.tile.tile-linux {background-color: #F3BF00;}
 			.thumbnails > li.tile.tile-windows {background-color: #04AEDA;}
 			.thumbnails {height: 165px;}
@@ -77,9 +77,9 @@
 		    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<script id="thumbnail" type="text/x-handlebars-template">
-			<li class="span4 tile tile-{{title}}">
+			<li class="span4 tile tile-{{type}}">
 		        <a href="#">
-		            <img src="images/{{title}}.png" width="100" height="100" alt="{{title}} {{version}}" title="{{title}} {{version}}">
+		            <img src="images/{{type}}.png" width="100" height="100" alt="{{title}} {{version}}" title="{{title}} {{version}}">
 		            <h2>{{version}}</h2>
 		        </a>
 		    </li>
