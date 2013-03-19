@@ -67,7 +67,7 @@ $(document).ready(function() {
 		$("img").imagesLoaded(function($images) {
 			$images.each(function() {
 				var context,
-				img = new Image(),
+				img = new Image();
 				
 				try {
 					$("body").prepend($("<canvas id='canvas' width='100' height='100' class='hidden'>"));
