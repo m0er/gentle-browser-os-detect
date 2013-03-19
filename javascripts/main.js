@@ -12,7 +12,7 @@ function osType() {
 		return "osx";
 	}
 	
-	return $.ua.os.name;
+	return $.ua.os.name.toLowerCase();
 }
 
 /*
