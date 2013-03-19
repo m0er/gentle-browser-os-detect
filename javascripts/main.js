@@ -84,7 +84,7 @@ $(document).ready(function() {
 				var data = context.getImageData(5, 5, 100, 100).data;
 				$("#canvas").remove();
 				$("#info").spin(false);
-				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")").end().removeClass("not");
+				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")").removeClass("not");
 			});
 		});
 	}
