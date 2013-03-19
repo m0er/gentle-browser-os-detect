@@ -54,6 +54,8 @@ $(document).ready(function() {
 	
 	$(".thumbnails a").click(function(e) {
 		e.preventDefault();
+		
+		alert($(this).find(img).attr("title"));
 	});
 	
 	function showBrowserAndOsInfo() {
