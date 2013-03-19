@@ -47,9 +47,7 @@
 	};
 })(jQuery);
 
-$(function() {
-	var img = new Image();
-	
+$(document).ready(function() {
 	$("#info").spin();
 	
 	showBrowserAndOsInfo();
@@ -77,9 +75,8 @@ $(function() {
 			return $html;
 		}
 		
-		img.src = $html.find("img").attr("src");
-		context.drawImage(img, 0, 0);
-		var data = context.getImageData(0, 0, 1, 1).data;
+		context.drawImage($html.find("img")[0], 0, 0);
+		var data = context.getImageData(0, 0, $("#canvas").width(), #("#canvas").height()).data;
 		return $html.css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
 	}
 });
