@@ -62,7 +62,7 @@ $(document).ready(function() {
 			browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version}),
 			osHtml = template({title: $.ua.os.name, majorVersion: $.ua.os.version, version: $.ua.os.version});
 		
-		$("#info").append($(browserHtml)).append($(osHtml)).spin(false);
+		$("#info").append($(browserHtml)).append($(osHtml));
 		
 		$("img").imagesLoaded(function($images) {
 			$images.each(function() {
@@ -74,6 +74,8 @@ $(document).ready(function() {
 					context = document.getElementById("canvas").getContext("2d");
 				} catch (e) {
 					$("#canvas").remove();
+					$("#info").spin(false);
+					$(this).removeClass("not");
 					return;
 				}
 				
@@ -81,11 +83,9 @@ $(document).ready(function() {
 				
 				var data = context.getImageData(5, 5, 100, 100).data;
 				$("#canvas").remove();
-				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
-				
+				$("#info").spin(false);
+				$(this).parents("li.tile").css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")").end().removeClass("not");
 			});
-			
-
 		});
 	}
 });

@@ -7,6 +7,8 @@
 		<link rel="stylesheet" type="text/css" href="stylesheets/metro-bootstrap.css"/>
 		<style rel="stylesheet" type="text/css">
 			.hidden {display: none;}
+			.not.visible {visibility: hidden;}
+			.visible {visibility: visible;}
 			.thumbnails {height: 165px;}
 			.thumbnails img {width: 100px; height: 100px;}
 			.thumbnails a {color: white; font-size: 28px; font-weight: 700; line-height: 50px;}
@@ -70,7 +72,7 @@
 		    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<script id="thumbnail" type="text/x-handlebars-template">
-			<li class="span4 tile">
+			<li class="span4 tile not visible">
 		        <a href="#">
 		            <img src="images/{{title}}.png" width="100" height="100" alt="{{title}}" title="{{title}} {{version}}">
 		            <h3><strong>{{majorVersion}}</strong></h3>
