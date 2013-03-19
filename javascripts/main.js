@@ -70,13 +70,17 @@ $(document).ready(function() {
 			$html = $(html);
 		
 		try {
+			$("body").prepend($("<canvas id='canvas' width='100' height='100' class='hidden'>"));
 			context = document.getElementById("canvas").getContext("2d");
 		} catch (e) {
 			return $html;
 		}
 		
 		context.drawImage($html.find("img")[0], 0, 0);
-		var data = context.getImageData(0, 0, $("#canvas").width(), #("#canvas").height()).data;
+		var data = context.getImageData(0, 0, $("#canvas").width(), $("#canvas").height()).data;
+		
+		$("#canvas").remove();
+		
 		return $html.css("background-color", "rgb(" + data[0] + "," + data[1] + "," + data[2] + ")");
 	}
 });
