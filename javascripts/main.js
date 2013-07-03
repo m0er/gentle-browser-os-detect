@@ -61,8 +61,16 @@ $(document).ready(function() {
 	function showBrowserAndOsInfo() {
 		var $thumbnail = $("#thumbnail").html(),
 			template = Handlebars.compile($thumbnail),
-			browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version}),
-			osHtml = template({title: $.ua.os.name, majorVersion: $.ua.os.version, version: $.ua.os.version});
+			browserHtml = template({title: $.ua.browser.name, majorVersion: $.ua.browser.major, version: $.ua.browser.version, architecture: ''}),
+			osHtml = template({title: $.ua.os.name, majorVersion: $.ua.os.version, version: $.ua.os.version, architecture: $.ua.cpu.architecture});
+		
+		if (window.navigator.userAgent != null) {
+			var userAgent = window.navigator.userAgent;
+			if (userAgent.match(/android|andriod/i)) {
+				var uaAndroid = userAgent.match(/(android|andriod).+(\d.+\d.+\d);/i);
+				osHtml = template({title: uaAndroid[1], majorVersion: uaAndroid[2], version: uaAndroid[2], architecture: $.ua.cpu.architecture});
+			}
+		}
 		
 		$("#info").append($(browserHtml)).append($(osHtml));
 		
